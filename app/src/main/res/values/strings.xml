@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Fastest Delivery</string>
     <string name="fastest_del">Fastest Delivery 24/7</string>
+    <string name="sign_in">Sing In</string>
+    <string name="sign_up">Sign Up</string>
 
 </resources>
