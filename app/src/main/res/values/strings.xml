@@ -3,5 +3,9 @@
     <string name="fastest_del">Fastest Delivery 24/7</string>
     <string name="sign_in">Sing In</string>
     <string name="sign_up">Sign Up</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="forgot_pas">Forgot password?</string>
+    <string name="login">Login</string>
 
 </resources>
