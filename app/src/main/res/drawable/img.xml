@@ -848,10 +848,6 @@
         android:strokeAlpha="0.682943"
         android:fillColor="#ffffff"
         android:fillAlpha="0.682943"/>
-    <path
-        android:pathData="M79,188h30v30h-30z"
-        android:strokeAlpha="0.682943"
-        android:fillColor="url(#pattern0)"
-        android:fillAlpha="0.682943"/>
+
   </group>
 </vector>

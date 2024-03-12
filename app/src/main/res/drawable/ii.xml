@@ -744,11 +744,7 @@
       android:strokeAlpha="0.7"
       android:fillColor="#ffffff"
       android:fillAlpha="0.7"/>
-  <path
-      android:pathData="M170.1,159.9h15.31v15.63h-15.31z"
-      android:strokeAlpha="0.7"
-      android:fillColor="url(#pattern0)"
-      android:fillAlpha="0.7"/>
+
   <path
       android:pathData="M167.42,314.37C156.08,283.23 172.14,248.8 203.28,237.46L306.64,199.84C322.21,194.17 339.43,202.2 345.1,217.77L355.36,245.96C366.69,277.1 350.63,311.53 319.49,322.86L216.13,360.49C200.56,366.15 183.35,358.13 177.68,342.56L167.42,314.37Z"
       android:fillColor="#ffffff"

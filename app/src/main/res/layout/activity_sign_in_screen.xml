@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".sign_in_screen"
     android:background="#EAEAEA">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,13 +15,13 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
-            android:layout_height="210dp"
+            android:layout_height="300dp"
             android:background="@drawable/liner_radius">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="50dp"
                 android:src="@drawable/cooking" />
         </LinearLayout>
         <LinearLayout
@@ -25,6 +30,7 @@
             android:orientation="vertical"
             android:padding="30dp">
             <TextView
+                android:layout_marginTop="60dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/e_mail"
@@ -44,37 +50,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:layout_marginTop="20dp"
+                android:id="@+id/forgetPassword"
+                android:layout_marginTop="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fullName"
-                android:textSize="15sp"/>
-            <EditText
-                android:id="@+id/full_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone"
-                android:textSize="15sp"/>
-            <EditText
-                android:id="@+id/phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:text="@string/forgot_pas"
+                android:textSize="15sp"
+                android:textColor="#FA4A0C"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/register"
-                android:background="@drawable/btn_radius"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/cancel"
+                android:text="@string/login"
                 android:background="@drawable/btn_radius"/>
         </LinearLayout>
     </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
