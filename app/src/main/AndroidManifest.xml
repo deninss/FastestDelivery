@@ -16,7 +16,7 @@
             android:name=".on_boarding_screen"
             android:exported="false" />
         <activity
-            android:name=".sing_up_screen"
+            android:name=".sign_up_screen"
             android:exported="false" />
         <activity
             android:name=".sign_in_screen"

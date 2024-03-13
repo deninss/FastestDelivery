@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class sign_in_screen extends AppCompatActivity {
+import com.example.fastestdelivery.databinding.ActivitySignInScreenBinding;
+import com.example.fastestdelivery.databinding.ActivitySingUpScreenBinding;
 
+public class sign_in_screen extends AppCompatActivity {
+    private ActivitySignInScreenBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in_screen);
+        binding = ActivitySignInScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 }
