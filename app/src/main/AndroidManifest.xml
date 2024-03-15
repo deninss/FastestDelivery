@@ -22,9 +22,6 @@
             android:name=".sign_in_screen"
             android:exported="false" />
         <activity
-            android:name=".sing_in_screen"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

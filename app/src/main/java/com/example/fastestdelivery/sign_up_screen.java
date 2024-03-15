@@ -41,8 +41,8 @@ public class sign_up_screen extends AppCompatActivity {
                     if(validate("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$",binding.email.getText().toString()))
                     {
                         if(validate("^[А-ЯЁA-Z][а-яёa-z]+ [А-ЯЁA-Z][а-яёa-z]+ [А-ЯЁA-Z][а-яёa-z]+$",binding.fullName.getText().toString())){
-                            if(validate("^\\\\[1-9]\\\\d{11}$",binding.phone.getText().toString())){
-                              /*  FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.email.getText().toString(), binding.password.getText().toString())
+                            if(validate("^\\+7\\d{10}$",binding.phone.getText().toString())){
+                                FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.email.getText().toString(), binding.password.getText().toString())
                                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -58,7 +58,7 @@ public class sign_up_screen extends AppCompatActivity {
                                                     finish();
                                                 }
                                             }
-                                        });*/
+                                        });
                             }
                             else Toast.makeText(v.getContext(), "Телефон введен не корректно", Toast.LENGTH_SHORT).show();
                         }
