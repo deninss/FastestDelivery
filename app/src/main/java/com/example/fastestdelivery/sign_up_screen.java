@@ -54,7 +54,7 @@ public class sign_up_screen extends AppCompatActivity {
                                                     FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                             .setValue(userInfo);
 
-                                                    startActivity(new Intent(sign_up_screen.this, on_boarding_screen.class));
+                                                    startActivity(new Intent(sign_up_screen.this, MainScreen.class));
                                                     finish();
                                                 }
                                             }
