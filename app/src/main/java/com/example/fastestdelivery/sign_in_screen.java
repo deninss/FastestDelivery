@@ -30,7 +30,7 @@ public class sign_in_screen extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
-                                    startActivity(new Intent(sign_in_screen.this, MainScreen.class));
+                                    startActivity(new Intent(sign_in_screen.this, LaunchScreen.class));
                                     finish();
                                 }
                             }

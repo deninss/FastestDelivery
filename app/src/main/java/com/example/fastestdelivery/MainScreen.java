@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-import com.example.fastestdelivery.boottomNav.HomeFragnent;
-import com.example.fastestdelivery.databinding.ActivityMainBinding;
+import com.example.fastestdelivery.boottomNav.HomeFragment;
 import com.example.fastestdelivery.databinding.ActivityMainScreenBinding;
 
 import java.util.HashMap;
@@ -17,10 +16,17 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(),new HomeFragnent()).commit();
-        binding.bottomNav.setSelectedItemId(R.id.questionnaire);
+        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(),new HomeFragment()).commit();
+        binding.bottomNav.setSelectedItemId(R.id.home);
         Map<Integer, Fragment> fragmentMap = new HashMap<>();
+        fragmentMap.put(R.id.home,new HomeFragment());
+        binding.bottomNav.setOnItemSelectedListener(item -> {
+            Fragment fragment = fragmentMap.get(item.getItemId());
+            getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), fragment).commit();
+
+            return true;
+        });
     }
 }

@@ -13,13 +13,25 @@
         android:theme="@style/Theme.FastestDelivery"
         tools:targetApi="31">
         <activity
-            android:name=".boottomNav.HomeFragnent"
+            android:name=".boottomNav.SauceFragment"
+            android:exported="false" />
+        <activity
+            android:name=".boottomNav.SnacksFragment"
+            android:exported="false" />
+        <activity
+            android:name=".boottomNav.DrinksFragment"
+            android:exported="false" />
+        <activity
+            android:name=".boottomNav.FoodsFragment"
+            android:exported="false" />
+        <activity
+            android:name=".LaunchScreen"
+            android:exported="false" />
+        <activity
+            android:name=".boottomNav.HomeFragment"
             android:exported="false" />
         <activity
             android:name=".MainScreen"
-            android:exported="false" />
-        <activity
-            android:name=".on_boarding_screen"
             android:exported="false" />
         <activity
             android:name=".sign_up_screen"
@@ -28,7 +40,7 @@
             android:name=".sign_in_screen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".on_boarding_screen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

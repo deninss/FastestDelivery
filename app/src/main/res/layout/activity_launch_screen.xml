@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/launchimg"
-    tools:context=".MainActivity">
+    tools:context=".LaunchScreen">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/launchsc"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

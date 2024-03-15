@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.fastestdelivery.databinding.ActivityMainBinding;
 import com.example.fastestdelivery.databinding.ActivitySingUpScreenBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +53,7 @@ public class sign_up_screen extends AppCompatActivity {
                                                     FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                             .setValue(userInfo);
 
-                                                    startActivity(new Intent(sign_up_screen.this, MainScreen.class));
+                                                    startActivity(new Intent(sign_up_screen.this, LaunchScreen.class));
                                                     finish();
                                                 }
                                             }

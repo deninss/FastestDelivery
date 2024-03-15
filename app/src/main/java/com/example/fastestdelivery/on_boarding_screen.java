@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.fastestdelivery.databinding.ActivityMainBinding;
+
 import com.example.fastestdelivery.databinding.ActivityOnBoardingScreenBinding;
 
 public class on_boarding_screen extends AppCompatActivity {
