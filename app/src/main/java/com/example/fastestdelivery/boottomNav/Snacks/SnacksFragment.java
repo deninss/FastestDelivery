@@ -1,4 +1,4 @@
-package com.example.fastestdelivery.boottomNav.fragment;
+package com.example.fastestdelivery.boottomNav.Snacks;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,15 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.fastestdelivery.databinding.FragmentDrinksBinding;
 import com.example.fastestdelivery.databinding.FragmentSauceBinding;
+import com.example.fastestdelivery.databinding.FragmentSnacksBinding;
 
-public class DrinksFragment extends Fragment {
-    private FragmentDrinksBinding binding;
+public class SnacksFragment extends Fragment {
+    private FragmentSnacksBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentDrinksBinding.inflate(inflater, container, false);
+        binding = FragmentSnacksBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }
