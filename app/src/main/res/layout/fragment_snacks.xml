@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".boottomNav.Snacks.SnacksFragment">
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/snacksList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="SNACKS"
-        android:textSize="30sp"/>
+        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

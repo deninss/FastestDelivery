@@ -35,7 +35,11 @@ public class LaunchScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
         dbHelper = new DbHelper(this);
         db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='tablena';", null);
+        loadFoods();
+        loadDrinks();
+    }
+    public void loadFoods(){
+        cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='foods';", null);
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -43,7 +47,7 @@ public class LaunchScreen extends AppCompatActivity {
             } else {
 
                 db = dbHelper.getWritableDatabase();
-                db.execSQL("CREATE TABLE tablena ("
+                db.execSQL("CREATE TABLE foods ("
                         + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                         + "name" + " TEXT,"
                         + "price" + " TEXT,"
@@ -53,24 +57,86 @@ public class LaunchScreen extends AppCompatActivity {
             cursor.close();
         }
 
-        FirebaseDatabase.getInstance().getReference().child("Foods").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Meal").child("Foods").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    // db.delete("foods", null, null);
                     long count = snapshot.getChildrenCount();
                     db = dbHelper.getReadableDatabase();
-                    cursor = db.rawQuery("SELECT COUNT(*) FROM tablena", null);
+                    cursor = db.rawQuery("SELECT COUNT(*) FROM foods", null);
                     int countSQLite;
                     if (cursor != null && cursor.moveToFirst()) {
                         countSQLite = cursor.getInt(0);
                         if (count > countSQLite) {
-                            db.delete("tablena", null, null);
+                            db.delete("foods", null, null);
                             for (DataSnapshot idd : snapshot.getChildren()) {
                                 ContentValues cv = new ContentValues();
                                 cv.put("name", idd.child("Name").getValue(String.class));
                                 cv.put("price", idd.child("Price").getValue(String.class));
                                 cv.put("img", idd.child("img").getValue(String.class));
-                                db.insert("tablena", null, cv);
+                                db.insert("foods", null, cv);
+
+                            }
+                            startActivity(new Intent(LaunchScreen.this, MainScreen.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(LaunchScreen.this, MainScreen.class));
+                            finish();
+                        }
+                    }
+
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                    db.close();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Обработка ошибки
+            }
+        });
+    }
+    public void loadDrinks(){
+        cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='drinks';", null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+            } else {
+
+                db = dbHelper.getWritableDatabase();
+                db.execSQL("CREATE TABLE drinks ("
+                        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + "name" + " TEXT,"
+                        + "price" + " TEXT,"
+                        + "img" + " TEXT"
+                        + ")");
+            }
+            cursor.close();
+        }
+
+        FirebaseDatabase.getInstance().getReference().child("Meal").child("Drinks").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // db.delete("foods", null, null);
+                    long count = snapshot.getChildrenCount();
+                    db = dbHelper.getReadableDatabase();
+                    cursor = db.rawQuery("SELECT COUNT(*) FROM drinks", null);
+                    int countSQLite;
+                    if (cursor != null && cursor.moveToFirst()) {
+                        countSQLite = cursor.getInt(0);
+                        if (count > countSQLite) {
+                            db.delete("drinks", null, null);
+                            for (DataSnapshot idd : snapshot.getChildren()) {
+                                ContentValues cv = new ContentValues();
+                                cv.put("name", idd.child("Name").getValue(String.class));
+                                cv.put("price", idd.child("Price").getValue(String.class));
+                                cv.put("img", idd.child("img").getValue(String.class));
+                                db.insert("drinks", null, cv);
 
                             }
                             startActivity(new Intent(LaunchScreen.this, MainScreen.class));

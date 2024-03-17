@@ -33,7 +33,7 @@ public class FoodsFragment extends Fragment {
         ArrayList<FoodsClass> foods = new ArrayList<>();
         DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM tablena", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM foods", null);
 
         if (cursor.moveToFirst()) {
             do {
