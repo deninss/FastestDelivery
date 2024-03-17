@@ -5,19 +5,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".boottomNav.HomeFragment"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     android:background="#F2F2F2">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-            <TextView
-                android:id="@+id/search"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textSize="20sp"
-                android:background="@drawable/radius"
-                android:layout_margin="20dp"/>
         <LinearLayout
+            android:id="@+id/Lmeal"
+            android:visibility="gone"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/mealSearch"
+                android:paddingLeft="10dp"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:hint="Поиск"
+                android:background="@drawable/radius"
+                android:textSize="20sp"/>
+
+            <ImageView
+                android:id="@+id/cleartext"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/wd"/>
+            <ImageView
+                android:id="@+id/clickAdres"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/adres"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/Ladress"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius"
+            android:orientation="horizontal">
+
+            <EditText
+                android:paddingLeft="10dp"
+                android:id="@+id/adresSearch"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:hint="Выберите адрес доставки"
+                android:background="@drawable/radius"
+                android:textSize="20sp"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/adres"/>
+            <ImageView
+                android:id="@+id/clickSearch"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/search"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockRes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Result"
+                android:layout_marginLeft="20dp"
+                android:textSize="35sp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/searchResult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/blockMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
