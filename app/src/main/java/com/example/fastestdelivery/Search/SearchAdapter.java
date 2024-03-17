@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.fastestdelivery.R;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsAdapter;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsClass;
 import com.example.fastestdelivery.boottomNav.Snacks.SnacksClass;
 import com.example.fastestdelivery.boottomNav.Snacks.SnacksViewHolder;
 
@@ -16,9 +18,14 @@ import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder>{
     private ArrayList<SearchClass> searchs = new ArrayList<>();
+    private OnSearchClickListener listener;
 
-    public SearchAdapter(ArrayList<SearchClass> searchs) {
+    public SearchAdapter(ArrayList<SearchClass> searchs,OnSearchClickListener listener) {
         this.searchs = searchs;
+        this.listener = listener;
+    }
+    public interface OnSearchClickListener {
+        void onSearchClick(SearchClass search);
     }
 
     @NonNull
@@ -34,6 +41,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder>{
         holder.name.setText(search.name);
         holder.price.setText(search.price);
         Glide.with(holder.itemView.getContext()).load(search.img).into(holder.img);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onSearchClick(search);
+            }
+        });
     }
 
     @Override

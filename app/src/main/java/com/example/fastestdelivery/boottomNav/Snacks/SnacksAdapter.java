@@ -11,14 +11,20 @@ import com.bumptech.glide.Glide;
 import com.example.fastestdelivery.R;
 import com.example.fastestdelivery.boottomNav.Drinks.DrinksClass;
 import com.example.fastestdelivery.boottomNav.Drinks.DrinksViewHolder;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsAdapter;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsClass;
 
 import java.util.ArrayList;
 
 public class SnacksAdapter extends RecyclerView.Adapter<SnacksViewHolder>{
     private ArrayList<SnacksClass> snacks = new ArrayList<>();
-
-    public SnacksAdapter(ArrayList<SnacksClass> snacks) {
+    private OnSnacksClickListener listener;
+    public SnacksAdapter(ArrayList<SnacksClass> snacks,OnSnacksClickListener listener) {
         this.snacks = snacks;
+        this.listener = listener;
+    }
+    public interface OnSnacksClickListener {
+        void onSnacksClick(SnacksClass snack);
     }
 
     @NonNull
@@ -34,6 +40,11 @@ public class SnacksAdapter extends RecyclerView.Adapter<SnacksViewHolder>{
         holder.name.setText(snack.name);
         holder.price.setText(snack.price);
         Glide.with(holder.itemView.getContext()).load(snack.img).into(holder.img);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onSnacksClick(snack);
+            }
+        });
     }
 
     @Override

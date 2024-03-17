@@ -4,13 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 
 import com.example.fastestdelivery.databinding.ActivityLaunchScreenBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -36,12 +40,22 @@ public class LaunchScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
         dbHelper = new DbHelper(this);
         db = dbHelper.getReadableDatabase();
+        if (isNetworkAvailable(getApplicationContext())) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+        } else {
+            binding.progressBar.setVisibility(View.GONE);
+        }
         loadFoods();
         loadDrinks();
         loadSnacks();
         loadSauce();
     }
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 
     public void loadFoods(){

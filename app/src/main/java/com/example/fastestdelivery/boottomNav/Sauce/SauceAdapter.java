@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.fastestdelivery.R;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsAdapter;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsClass;
 import com.example.fastestdelivery.boottomNav.Snacks.SnacksClass;
 import com.example.fastestdelivery.boottomNav.Snacks.SnacksViewHolder;
 
@@ -16,9 +18,14 @@ import java.util.ArrayList;
 
 public class SauceAdapter extends RecyclerView.Adapter<SauceViewHolder>{
     private ArrayList<SauceClass> sauces = new ArrayList<>();
+    private OnSauceClickListener listener;
 
-    public SauceAdapter(ArrayList<SauceClass> sauces) {
+    public SauceAdapter(ArrayList<SauceClass> sauces,OnSauceClickListener listener) {
         this.sauces = sauces;
+        this.listener = listener;
+    }
+    public interface OnSauceClickListener {
+        void onSauceClick(SauceClass sauce);
     }
 
     @NonNull
@@ -34,6 +41,11 @@ public class SauceAdapter extends RecyclerView.Adapter<SauceViewHolder>{
         holder.name.setText(sauce.name);
         holder.price.setText(sauce.price);
         Glide.with(holder.itemView.getContext()).load(sauce.img).into(holder.img);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onSauceClick(sauce);
+            }
+        });
     }
 
     @Override

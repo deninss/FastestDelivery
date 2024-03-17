@@ -8,21 +8,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.fastestdelivery.DbHelper;
 import com.example.fastestdelivery.R;
+import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemAdapter;
+import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemClass;
 import com.example.fastestdelivery.databinding.FragmentFoodsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodsFragment extends Fragment {
+public class FoodsFragment extends Fragment implements FoodsAdapter.OnFoodClickListener,SelectedItemAdapter.OnFoodClickListener {
     private FragmentFoodsBinding binding;
     SimpleCursorAdapter userAdapter;
 
@@ -30,6 +35,10 @@ public class FoodsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentFoodsBinding.inflate(inflater, container, false);
+        loadItem();
+        return binding.getRoot();
+    }
+    public void loadItem(){
         ArrayList<FoodsClass> foods = new ArrayList<>();
         DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -49,12 +58,23 @@ public class FoodsFragment extends Fragment {
 
             // Set up the RecyclerView
             binding.foodsList.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-            binding.foodsList.setAdapter(new FoodsAdapter(foods));
+            binding.foodsList.setAdapter(new FoodsAdapter(foods,this));
         } else {
             // Handle case when there are no rows in the cursor
         }
 
-        return binding.getRoot();
+    }
+    @Override
+    public void onFoodClick(FoodsClass food) {
+        ArrayList<SelectedItemClass> sic = new ArrayList<>();
+        sic.add(new SelectedItemClass(food.name, food.price, food.img));
+
+        binding.foodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
+        binding.foodsList.setAdapter(new SelectedItemAdapter(sic,this));
     }
 
+    @Override
+    public void onItemClicked() {
+        loadItem();
+    }
 }

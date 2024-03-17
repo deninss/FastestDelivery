@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.load.model.ByteArrayLoader;
@@ -21,6 +22,10 @@ import com.example.fastestdelivery.DbHelper;
 import com.example.fastestdelivery.R;
 import com.example.fastestdelivery.Search.SearchAdapter;
 import com.example.fastestdelivery.Search.SearchClass;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsAdapter;
+import com.example.fastestdelivery.boottomNav.Foods.FoodsClass;
+import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemAdapter;
+import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemClass;
 import com.example.fastestdelivery.boottomNav.Snacks.SnacksAdapter;
 import com.example.fastestdelivery.boottomNav.Snacks.SnacksClass;
 import com.example.fastestdelivery.databinding.FragmentHomeBinding;
@@ -30,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchAdapter.OnSearchClickListener, SelectedItemAdapter.OnFoodClickListener{
     private FragmentHomeBinding binding;
     HomeAdapter homeAdapter;
     @Nullable
@@ -77,35 +82,7 @@ public class HomeFragment extends Fragment {
                     if(s.length() > 0){
                         binding.blockRes.setVisibility(View.VISIBLE);
                         binding.blockMenu.setVisibility(View.GONE);
-
-                        ArrayList<SearchClass> search = new ArrayList<>();
-                        DbHelper dbHelper = new DbHelper(getContext());
-                        SQLiteDatabase db = dbHelper.getReadableDatabase();
-                        Cursor cursor = db.rawQuery( "SELECT * FROM foods WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' " +
-                                "UNION " +
-                                "SELECT * FROM drinks WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' " +
-                                "UNION " +
-                                "SELECT * FROM sauce WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' " +
-                                "UNION " +
-                                "SELECT * FROM snacks WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' ", null);
-
-                        if (cursor != null) {
-                            if (cursor.moveToFirst()) {
-                                do {
-                                    int ni =cursor.getColumnIndex("name");
-                                    int pi =cursor.getColumnIndex("price");
-                                    int ii =cursor.getColumnIndex("img");
-                                    String name = cursor.getString(ni);
-                                    String price = cursor.getString(pi);
-                                    String img = cursor.getString(ii);
-                                    search.add(new SearchClass(name,price,img));
-                                } while (cursor.moveToNext());
-                            }
-                            cursor.close();
-                            binding.searchResult.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-                            binding.searchResult.setAdapter(new SearchAdapter(search));
-                        }
-
+                        loadItem();
                     }
                     else {
                         binding.blockRes.setVisibility(View.GONE);
@@ -130,6 +107,49 @@ public class HomeFragment extends Fragment {
             binding.mealSearch.setText("");
         });
 
+
         return binding.getRoot();
+    }
+    public void loadItem(){
+        ArrayList<SearchClass> search = new ArrayList<>();
+        DbHelper dbHelper = new DbHelper(getContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery( "SELECT * FROM foods WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' " +
+                "UNION " +
+                "SELECT * FROM drinks WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' " +
+                "UNION " +
+                "SELECT * FROM sauce WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' " +
+                "UNION " +
+                "SELECT * FROM snacks WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' ", null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    int ni =cursor.getColumnIndex("name");
+                    int pi =cursor.getColumnIndex("price");
+                    int ii =cursor.getColumnIndex("img");
+                    String name = cursor.getString(ni);
+                    String price = cursor.getString(pi);
+                    String img = cursor.getString(ii);
+                    search.add(new SearchClass(name,price,img));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            binding.searchResult.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+            binding.searchResult.setAdapter(new SearchAdapter(search,this));
+        }
+    }
+    @Override
+    public void onSearchClick(SearchClass food) {
+        ArrayList<SelectedItemClass> sic = new ArrayList<>();
+        sic.add(new SelectedItemClass(food.name, food.price, food.img));
+
+        binding.searchResult.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
+        binding.searchResult.setAdapter(new SelectedItemAdapter(sic,this));
+    }
+
+    @Override
+    public void onItemClicked() {
+        loadItem();
     }
 }
