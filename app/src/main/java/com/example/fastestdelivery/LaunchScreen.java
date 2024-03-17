@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,7 +38,12 @@ public class LaunchScreen extends AppCompatActivity {
         db = dbHelper.getReadableDatabase();
         loadFoods();
         loadDrinks();
+        loadSnacks();
+        loadSauce();
     }
+
+
+
     public void loadFoods(){
         cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='foods';", null);
 
@@ -122,7 +128,7 @@ public class LaunchScreen extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    // db.delete("foods", null, null);
+                    // db.delete("drinks", null, null);
                     long count = snapshot.getChildrenCount();
                     db = dbHelper.getReadableDatabase();
                     cursor = db.rawQuery("SELECT COUNT(*) FROM drinks", null);
@@ -157,6 +163,134 @@ public class LaunchScreen extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Обработка ошибки
+            }
+        });
+    }
+    public void loadSnacks(){
+        cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='snacks';", null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+            } else {
+
+                db = dbHelper.getWritableDatabase();
+                db.execSQL("CREATE TABLE snacks ("
+                        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + "name" + " TEXT,"
+                        + "price" + " TEXT,"
+                        + "img" + " TEXT"
+                        + ")");
+            }
+            cursor.close();
+        }
+
+        FirebaseDatabase.getInstance().getReference().child("Meal").child("Snack").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+                    // db.delete("foods", null, null);
+                    long count = snapshot.getChildrenCount();
+                    db = dbHelper.getReadableDatabase();
+                    cursor = db.rawQuery("SELECT COUNT(*) FROM snacks", null);
+                    int countSQLite;
+                    if (cursor != null && cursor.moveToFirst()) {
+                        countSQLite = cursor.getInt(0);
+                        if (count > countSQLite) {
+                            db.delete("snacks", null, null);
+                            for (DataSnapshot idd : snapshot.getChildren()) {
+                                ContentValues cv = new ContentValues();
+                                cv.put("name", idd.child("Name").getValue(String.class));
+                                cv.put("price", idd.child("Price").getValue(String.class));
+                                cv.put("img", idd.child("img").getValue(String.class));
+                                db.insert("snacks", null, cv);
+
+                            }
+                            startActivity(new Intent(LaunchScreen.this, MainScreen.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(LaunchScreen.this, MainScreen.class));
+                            finish();
+                        }
+                    }
+
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                    db.close();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.d("HELPLP", error.getMessage());
+            }
+        });
+    }
+    public void loadSauce() {
+        cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='sauce';", null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+            } else {
+
+                db = dbHelper.getWritableDatabase();
+                db.execSQL("CREATE TABLE sauce ("
+                        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + "name" + " TEXT,"
+                        + "price" + " TEXT,"
+                        + "img" + " TEXT"
+                        + ")");
+            }
+            cursor.close();
+        }
+
+        FirebaseDatabase.getInstance().getReference().child("Meal").child("Sauce").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+                    // db.delete("foods", null, null);
+                    long count = snapshot.getChildrenCount();
+                    db = dbHelper.getReadableDatabase();
+                    cursor = db.rawQuery("SELECT COUNT(*) FROM sauce", null);
+                    int countSQLite;
+                    if (cursor != null && cursor.moveToFirst()) {
+                        countSQLite = cursor.getInt(0);
+                        if (count > countSQLite) {
+                            db.delete("sauce", null, null);
+                            for (DataSnapshot idd : snapshot.getChildren()) {
+                                ContentValues cv = new ContentValues();
+                                cv.put("name", idd.child("Name").getValue(String.class));
+                                cv.put("price", idd.child("Price").getValue(String.class));
+                                cv.put("img", idd.child("img").getValue(String.class));
+                                db.insert("sauce", null, cv);
+
+                            }
+                            startActivity(new Intent(LaunchScreen.this, MainScreen.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(LaunchScreen.this, MainScreen.class));
+                            finish();
+                        }
+                    }
+
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                    db.close();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.d("HELPLP", error.getMessage());
             }
         });
     }

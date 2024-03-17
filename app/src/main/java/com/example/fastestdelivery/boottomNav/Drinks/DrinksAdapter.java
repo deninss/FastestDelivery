@@ -14,7 +14,7 @@ import com.example.fastestdelivery.boottomNav.Foods.FoodsViewHolder;
 
 import java.util.ArrayList;
 
-public class DrinksAdapter  extends RecyclerView.Adapter<DrinksViewHolder>{
+public class DrinksAdapter extends RecyclerView.Adapter<DrinksViewHolder>{
     private ArrayList<DrinksClass> drinks = new ArrayList<>();
 
     public DrinksAdapter(ArrayList<DrinksClass> drinks) {
