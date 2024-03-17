@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "53017806256",
+    "project_id": "fastest-delivery-39136",
+    "storage_bucket": "fastest-delivery-39136.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53017806256:android:56a6155d3ab889f0004275",
+        "android_client_info": {
+          "package_name": "com.example.fastestdelivery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSybi8v96uld_kMwmQB1t_XDWSZ7hNNFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
