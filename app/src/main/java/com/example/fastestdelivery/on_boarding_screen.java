@@ -53,12 +53,13 @@ public class on_boarding_screen extends AppCompatActivity {
                 TextView goust = findViewById(R.id.goust);
                 if (isNetworkAvailable(getApplicationContext())) {
                     goust.setVisibility(View.GONE);
-                    goust.setOnClickListener(v -> {
-                        startActivity(new Intent(on_boarding_screen.this,LaunchScreen.class));
-                    });
+
                 } else {
                     goust.setVisibility(View.VISIBLE);
                 }
+                goust.setOnClickListener(v -> {
+                    startActivity(new Intent(on_boarding_screen.this,LaunchScreen.class));
+                });
                 sign_in.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

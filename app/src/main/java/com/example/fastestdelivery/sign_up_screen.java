@@ -41,24 +41,28 @@ public class sign_up_screen extends AppCompatActivity {
                     {
                         if(validate("^[А-ЯЁA-Z][а-яёa-z]+ [А-ЯЁA-Z][а-яёa-z]+ [А-ЯЁA-Z][а-яёa-z]+$",binding.fullName.getText().toString())){
                             if(validate("^\\+7\\d{10}$",binding.phone.getText().toString())){
+                                if(binding.password.getText().length() > 6)
+                                {
+                                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.email.getText().toString(), binding.password.getText().toString())
+                                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (task.isSuccessful()){
+                                                        HashMap<String, String> userInfo = new HashMap<>();
+                                                        userInfo.put("email", binding.email.getText().toString());
+                                                        userInfo.put("fullName", binding.fullName.getText().toString());
+                                                        userInfo.put("phone", binding.phone.getText().toString());
+                                                        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                .setValue(userInfo);
 
-                                FirebaseAuth.getInstance().createUserWithEmailAndPassword(binding.email.getText().toString(), binding.password.getText().toString())
-                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful()){
-                                                    HashMap<String, String> userInfo = new HashMap<>();
-                                                    userInfo.put("email", binding.email.getText().toString());
-                                                    userInfo.put("fullName", binding.fullName.getText().toString());
-                                                    userInfo.put("phone", binding.phone.getText().toString());
-                                                    FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                            .setValue(userInfo);
-
-                                                    startActivity(new Intent(sign_up_screen.this, LaunchScreen.class));
-                                                    finish();
+                                                        startActivity(new Intent(sign_up_screen.this, LaunchScreen.class));
+                                                        finish();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                }
+                                else Toast.makeText(v.getContext(), "Длина пароля должна быть больше 6 симворлов", Toast.LENGTH_SHORT).show();
+
                             }
                             else Toast.makeText(v.getContext(), "Телефон введен не корректно", Toast.LENGTH_SHORT).show();
                         }

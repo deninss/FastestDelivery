@@ -42,13 +42,16 @@ public class LaunchScreen extends AppCompatActivity {
         db = dbHelper.getReadableDatabase();
         if (isNetworkAvailable(getApplicationContext())) {
             binding.progressBar.setVisibility(View.VISIBLE);
+            loadFoods();
+            loadDrinks();
+            loadSnacks();
+            loadSauce();
         } else {
             binding.progressBar.setVisibility(View.GONE);
+            startActivity(new Intent(LaunchScreen.this, MainScreen.class));
+            finish();
+
         }
-        loadFoods();
-        loadDrinks();
-        loadSnacks();
-        loadSauce();
     }
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -96,7 +99,6 @@ public class LaunchScreen extends AppCompatActivity {
                                 cv.put("price", idd.child("Price").getValue(String.class));
                                 cv.put("img", idd.child("img").getValue(String.class));
                                 db.insert("foods", null, cv);
-
                             }
                             startActivity(new Intent(LaunchScreen.this, MainScreen.class));
                             finish();
