@@ -20,14 +20,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.load.model.ByteArrayLoader;
 import com.example.fastestdelivery.DbHelper;
 import com.example.fastestdelivery.R;
-import com.example.fastestdelivery.Search.SearchAdapter;
-import com.example.fastestdelivery.Search.SearchClass;
-import com.example.fastestdelivery.boottomNav.Foods.FoodsAdapter;
-import com.example.fastestdelivery.boottomNav.Foods.FoodsClass;
+import com.example.fastestdelivery.boottomNav.Menu.MenuAdapter;
+import com.example.fastestdelivery.boottomNav.Menu.MenuClass;
 import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemAdapter;
 import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemClass;
-import com.example.fastestdelivery.boottomNav.Snacks.SnacksAdapter;
-import com.example.fastestdelivery.boottomNav.Snacks.SnacksClass;
 import com.example.fastestdelivery.databinding.FragmentHomeBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements SearchAdapter.OnSearchClickListener, SelectedItemAdapter.OnFoodClickListener{
+public class HomeFragment extends Fragment implements MenuAdapter.OnMenoClickListener, SelectedItemAdapter.OnFoodClickListener{
     private FragmentHomeBinding binding;
     HomeAdapter homeAdapter;
     @Nullable
@@ -111,7 +107,7 @@ public class HomeFragment extends Fragment implements SearchAdapter.OnSearchClic
         return binding.getRoot();
     }
     public void loadItem(){
-        ArrayList<SearchClass> search = new ArrayList<>();
+        ArrayList<MenuClass> search = new ArrayList<>();
         DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery( "SELECT * FROM foods WHERE name LIKE '%"+binding.mealSearch.getText().toString()+"%' " +
@@ -131,16 +127,16 @@ public class HomeFragment extends Fragment implements SearchAdapter.OnSearchClic
                     String name = cursor.getString(ni);
                     String price = cursor.getString(pi);
                     String img = cursor.getString(ii);
-                    search.add(new SearchClass(name,price,img));
+                    search.add(new MenuClass(name,price,img));
                 } while (cursor.moveToNext());
             }
             cursor.close();
             binding.searchResult.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-            binding.searchResult.setAdapter(new SearchAdapter(search,this));
+            binding.searchResult.setAdapter(new MenuAdapter(search,this));
         }
     }
     @Override
-    public void onSearchClick(SearchClass food) {
+    public void onMenuClick(MenuClass food) {
         ArrayList<SelectedItemClass> sic = new ArrayList<>();
         sic.add(new SelectedItemClass(food.name, food.price, food.img));
 

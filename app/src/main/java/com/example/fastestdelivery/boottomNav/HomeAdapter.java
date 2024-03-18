@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.fastestdelivery.boottomNav.Drinks.DrinksFragment;
-import com.example.fastestdelivery.boottomNav.Foods.FoodsFragment;
-import com.example.fastestdelivery.boottomNav.Sauce.SauceFragment;
-import com.example.fastestdelivery.boottomNav.Snacks.SnacksFragment;
+import com.example.fastestdelivery.boottomNav.MenuFragment.DrinksFragment;
+import com.example.fastestdelivery.boottomNav.MenuFragment.FoodsFragment;
+import com.example.fastestdelivery.boottomNav.MenuFragment.SauceFragment;
+import com.example.fastestdelivery.boottomNav.MenuFragment.SnacksFragment;
 
 public class HomeAdapter extends FragmentStateAdapter {
     public HomeAdapter(@NonNull Fragment fragment) {

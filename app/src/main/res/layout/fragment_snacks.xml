@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".boottomNav.Snacks.SnacksFragment">
+    tools:context=".boottomNav.MenuFragment.SnacksFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/snacksList"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.fastestdelivery.boottomNav.Foods;
+package com.example.fastestdelivery.boottomNav.MenuFragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.fastestdelivery.DbHelper;
 import com.example.fastestdelivery.R;
+import com.example.fastestdelivery.boottomNav.Menu.MenuAdapter;
+import com.example.fastestdelivery.boottomNav.Menu.MenuClass;
 import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemAdapter;
 import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemClass;
 import com.example.fastestdelivery.databinding.FragmentFoodsBinding;
@@ -27,7 +29,7 @@ import com.example.fastestdelivery.databinding.FragmentFoodsBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodsFragment extends Fragment implements FoodsAdapter.OnFoodClickListener,SelectedItemAdapter.OnFoodClickListener {
+public class FoodsFragment extends Fragment implements MenuAdapter.OnMenoClickListener,SelectedItemAdapter.OnFoodClickListener {
     private FragmentFoodsBinding binding;
     SimpleCursorAdapter userAdapter;
 
@@ -39,7 +41,7 @@ public class FoodsFragment extends Fragment implements FoodsAdapter.OnFoodClickL
         return binding.getRoot();
     }
     public void loadItem(){
-        ArrayList<FoodsClass> foods = new ArrayList<>();
+        ArrayList<MenuClass> foods = new ArrayList<>();
         DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM foods", null);
@@ -52,20 +54,20 @@ public class FoodsFragment extends Fragment implements FoodsAdapter.OnFoodClickL
                 String name = cursor.getString(ni);
                 String price = cursor.getString(pi);
                 String img = cursor.getString(ii);
-                foods.add(new FoodsClass(name, price, img));
+                foods.add(new MenuClass(name, price, img));
             } while (cursor.moveToNext());
             cursor.close();
 
             // Set up the RecyclerView
             binding.foodsList.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-            binding.foodsList.setAdapter(new FoodsAdapter(foods,this));
+            binding.foodsList.setAdapter(new MenuAdapter(foods,this));
         } else {
             // Handle case when there are no rows in the cursor
         }
 
     }
     @Override
-    public void onFoodClick(FoodsClass food) {
+    public void onMenuClick(MenuClass food) {
         ArrayList<SelectedItemClass> sic = new ArrayList<>();
         sic.add(new SelectedItemClass(food.name, food.price, food.img));
 

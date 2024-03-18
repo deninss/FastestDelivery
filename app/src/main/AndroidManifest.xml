@@ -19,16 +19,16 @@
             android:name=".OneItemScreen"
             android:exported="false" />
         <activity
-            android:name=".boottomNav.Sauce.SauceFragment"
+            android:name=".boottomNav.MenuFragment.SauceFragment"
             android:exported="false" />
         <activity
-            android:name=".boottomNav.Snacks.SnacksFragment"
+            android:name=".boottomNav.MenuFragment.SnacksFragment"
             android:exported="false" />
         <activity
-            android:name=".boottomNav.Drinks.DrinksFragment"
+            android:name=".boottomNav.MenuFragment.DrinksFragment"
             android:exported="false" />
         <activity
-            android:name=".boottomNav.Foods.FoodsFragment"
+            android:name=".boottomNav.MenuFragment.FoodsFragment"
             android:exported="false" />
         <activity
             android:name=".boottomNav.HomeFragment"

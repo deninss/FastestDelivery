@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".boottomNav.Drinks.DrinksFragment">
+    tools:context=".boottomNav.MenuFragment.DrinksFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drinksList"
         android:layout_width="match_parent"

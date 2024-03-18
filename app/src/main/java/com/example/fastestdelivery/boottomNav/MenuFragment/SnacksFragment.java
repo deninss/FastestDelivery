@@ -1,4 +1,4 @@
-package com.example.fastestdelivery.boottomNav.Snacks;
+package com.example.fastestdelivery.boottomNav.MenuFragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.fastestdelivery.DbHelper;
-import com.example.fastestdelivery.boottomNav.Drinks.DrinksAdapter;
-import com.example.fastestdelivery.boottomNav.Drinks.DrinksClass;
-import com.example.fastestdelivery.boottomNav.Foods.FoodsAdapter;
-import com.example.fastestdelivery.boottomNav.Foods.FoodsClass;
+import com.example.fastestdelivery.boottomNav.Menu.MenuAdapter;
+import com.example.fastestdelivery.boottomNav.Menu.MenuClass;
 import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemAdapter;
 import com.example.fastestdelivery.boottomNav.SelectedItem.SelectedItemClass;
 import com.example.fastestdelivery.databinding.FragmentSauceBinding;
@@ -25,7 +23,7 @@ import com.example.fastestdelivery.databinding.FragmentSnacksBinding;
 
 import java.util.ArrayList;
 
-public class SnacksFragment extends Fragment implements SnacksAdapter.OnSnacksClickListener,SelectedItemAdapter.OnFoodClickListener{
+public class SnacksFragment extends Fragment implements MenuAdapter.OnMenoClickListener,SelectedItemAdapter.OnFoodClickListener{
     private FragmentSnacksBinding binding;
     @Nullable
     @Override
@@ -35,7 +33,7 @@ public class SnacksFragment extends Fragment implements SnacksAdapter.OnSnacksCl
         return binding.getRoot();
     }
     public void loadItem(){
-        ArrayList<SnacksClass> snacks = new ArrayList<>();
+        ArrayList<MenuClass> snacks = new ArrayList<>();
         DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM snacks", null);
@@ -48,19 +46,19 @@ public class SnacksFragment extends Fragment implements SnacksAdapter.OnSnacksCl
                 String name = cursor.getString(ni);
                 String price = cursor.getString(pi);
                 String img = cursor.getString(ii);
-                snacks.add(new SnacksClass(name,price,img));
+                snacks.add(new MenuClass(name,price,img));
             } while (cursor.moveToNext());
             cursor.close();
 
             // Set up the RecyclerView
             binding.snacksList.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-            binding.snacksList.setAdapter(new SnacksAdapter(snacks,this));
+            binding.snacksList.setAdapter(new MenuAdapter(snacks,this));
         } else {
             // Handle case when there are no rows in the cursor
         }
     }
     @Override
-    public void onSnacksClick(SnacksClass food) {
+    public void onMenuClick(MenuClass food) {
         ArrayList<SelectedItemClass> sic = new ArrayList<>();
         sic.add(new SelectedItemClass(food.name, food.price, food.img));
 

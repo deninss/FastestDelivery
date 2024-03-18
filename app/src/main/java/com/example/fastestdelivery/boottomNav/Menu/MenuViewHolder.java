@@ -1,4 +1,4 @@
-package com.example.fastestdelivery.boottomNav.Foods;
+package com.example.fastestdelivery.boottomNav.Menu;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fastestdelivery.R;
 
-public class FoodsViewHolder extends RecyclerView.ViewHolder{
+public class MenuViewHolder extends RecyclerView.ViewHolder{
     TextView name;
     TextView price;
     ImageView img;
-    public FoodsViewHolder(@NonNull View itemView) {
+    public MenuViewHolder(@NonNull View itemView) {
         super(itemView);
         name = itemView.findViewById(R.id.Name);
         price = itemView.findViewById(R.id.Price);
